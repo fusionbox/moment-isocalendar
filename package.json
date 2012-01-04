@@ -1,0 +1,27 @@
+{ "name": "moment-isocalendar"
+, "version": "0.0.1"
+, "description": ""
+, "homepage": "https://github.com/rockymeza/moment-isocalendar"
+, "author": "Rocky Meza <rockymeza@gmail.com> (http://rockymeza.com)"
+, "keywords": [ "moment"
+              , "isocalendar"
+              , "iso"
+              , "date"
+              ]
+, "main": "./moment.isocalendar"
+, "engines": { "node": "*"
+             }
+, "dependencies": { "moment": ">=1.0.0"
+                  }
+, "devDependencies": { "mocha": "*"
+                     , "should": "*"
+                     }
+, "repository": { "type": "git"
+                , "url": "https://github.com/rockymeza/moment-isocalendar.git"
+                }
+, "bugs": { "url": "https://github.com/rockymeza/moment-isocalendar/issues"
+          }
+, "licenses" : [ { "type" : "MIT"
+                 }
+               ]
+}
