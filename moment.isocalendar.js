@@ -3,12 +3,8 @@ if ( typeof require != 'undefined' ) {
 }
 ;(function(moment) {
 
-  var dayOne = function(year) {
-        return moment(new Date(year, 0, 1, 0, 0, 0));
-      }
-
-    , firstIsoWeekOfYear = function(year) {
-        var m = dayOne(year);
+  var firstIsoWeekOfYear = function(year) {
+        var m = moment([year]);
 
         // ISO week is the first week with a Thursday, so if the first
         // day of the year is Friday, move to next Sunday.
@@ -38,7 +34,7 @@ if ( typeof require != 'undefined' ) {
     else if ( week < 1 )
     {
       year -= 1;
-      week = moment(new Date(year, 11, 31, 0, 0)).isocalendar()[1];
+      week = moment([year, 11, 31, 0, 0]).isocalendar()[1];
     }
 
     return [ year
