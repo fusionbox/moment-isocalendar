@@ -1,18 +1,26 @@
-if ( typeof require != 'undefined' ) {
-  var moment = require('moment');
+if ( typeof require != 'undefined' )
+{
+  moment = require('moment');
 }
+
 ;(function(moment) {
 
-  var firstIsoWeekOfYear = function(year) {
-        var m = moment([year]);
+  var firstIsoWeekOfYear = exports.firstIsoWeekOfYear = function(year) {
+        var m = moment([year])
+          , day = m.day();
+
+        if ( day === 0 )
+        {
+          day = 7;
+        }
 
         // ISO week is the first week with a Thursday, so if the first
         // day of the year is Friday, move to next Sunday.
-        if ( m.day() > 4 ) {
+        if ( day > 4 ) {
           m.add('weeks', 1);
         }
 
-        m.subtract('days', m.day());
+        m.subtract('days', day - 1);
 
         return m;
       }
@@ -20,8 +28,8 @@ if ( typeof require != 'undefined' ) {
 
   moment.fn.isocalendar = function() {
     var year = this.year()
-      , firstSunday = firstIsoWeekOfYear(year)
-      , week = Math.floor(this.diff(firstSunday, 'weeks', true)) + 1
+      , firstMonday = firstIsoWeekOfYear(year)
+      , week = Math.floor(this.diff(firstMonday, 'weeks', true)) + 1
       , day = this.day()
       , minute = this.hours() * 60 + this.minutes()
       ;
@@ -37,6 +45,11 @@ if ( typeof require != 'undefined' ) {
       week = moment([year, 11, 31, 0, 0]).isocalendar()[1];
     }
 
+    if ( day === 0 )
+    {
+      day = 7;
+    }
+
     return [ year
            , week
            , day
@@ -44,11 +57,11 @@ if ( typeof require != 'undefined' ) {
            ];
   };
 
-  moment.fromIsocalendar = function(year, week, day, minute) {
-    var date = firstIsoWeekOfYear(year).add({
-      weeks: week - 1
-    , days: day
-    , minutes: minute
+  moment.fromIsocalendar = function(array) {
+    var date = firstIsoWeekOfYear(array[0]).add({
+      weeks: array[1] - 1
+    , days: array[2] - 1
+    , minutes: array[3]
     });
 
     return date;

@@ -1,83 +1,86 @@
 var moment = require('moment')
   , should = require('should')
-  , exec = require('child_process').exec;
+  , exec = require('child_process').exec
+  , sys = require('util')
+  ;
 
 require('../moment.isocalendar');
-;(function(m) {
 
-  function date2iso(date, done) {
-    var date_string = date.format('YYYY M D H m');
-
-    exec('python test/helpers/date2iso.py ' + date_string, function(error, stdin, stdout) {
-      var expected = JSON.parse(stdin);
-
-      date.isocalendar().should.eql(expected);
-
-      if ( done )
-        done();
-    });
+function date2iso(date, iso) {
+  var m = moment(date);
+  try {
+    m.isocalendar().should.eql(iso);
+  } catch(e) {
+    console.log(date, m, m.isocalendar(), iso);
+    throw e;
   }
+}
 
-  function iso2date(date, done) {
-    var iso = date.isocalendar()
-      , iso_string = iso.join(' ');
+function iso2date(iso, date) {
+  moment.fromIsocalendar(iso).should.eql(moment(date));
+}
 
-    exec('python test/helpers/iso2date.py ' + iso_string, function(error, stdin, stdout) {
-      var resp = JSON.parse(stdin)
-        , expected = moment(new Date(resp[0], resp[1] - 1, resp[2], resp[3], resp[4]))
-        , actual = moment.fromIsocalendar.apply(moment, iso);
-      
-      actual.format('LLLL').should.equal(expected.format('LLLL'));
-    });
+function backAndForth(date) {
+  var iso = date.isocalendar()
+    , date2 = moment.fromIsocalendar(iso)
+    ;
 
-    if ( done )
-      done();
+  try {
+  date.should.eql(date2);
+  } catch (e) {
+    console.log(date.format('LLLL'), iso, date2.format('LLLL'), e);
+    throw e;
   }
+}
 
-  function testBackAndForth(date, done) {
-    var relative = date.isocalendar()
-      , date2 = moment.fromIsocalendar.apply(moment, relative)
-      , relative2 = date2.isocalendar()
-      ;
-
-    date.format('LLLL').should.equal(date2.format('LLLL'));
-    relative.should.eql(relative2);
-
-    if ( done )
-      done();
-  }
-
-  function rand(max) {
-    return Math.floor(Math.random() * max);
-  }
-
-  function doDone(bool, done) {
-    return function() { if ( bool )  done(); };
-  }
-
-  function randomly(times, func, done) {
-    for (var i = times; i > 0; i--) {
-      var date = moment(new Date(2000, 0, 1, 0, 0)).add('minutes', rand(365 * 100 * 60 * 24));
-
-      func(date, doDone(i == 1, done));
-    }
-  }
-
-  describe('isocalendar', function() {
-    // if you start spawning too much, test start failing
-    var times = 50;
-
-    it('random testBackAndForth', function(done) {
-      randomly(times, testBackAndForth, done);
-    });
-
-    it('random iso2date', function(done) {
-      randomly(times, iso2date, done);
-    });
-
-    it('random date2iso', function(done) {
-      randomly(times, date2iso, done);
-    });
+describe('isocalendar', function() {
+  it('should work for a normal day', function() {
+    date2iso([2012, 1, 11, 5, 14], [2012, 6, 6, 314]);
   });
 
-})(moment);
+  it('should transform sunday to 7', function() {
+    date2iso([2012, 1, 12, 5, 14], [2012, 6, 7, 314]);
+  });
+
+  it('years that start on Monday', function() {
+    date2iso([2017, 8, 4, 0, 0], [2017, 36, 1, 0]);
+  });
+});
+
+describe('fromIsocalendar', function() {
+  it('should work for normal days', function() {
+    iso2date([2012, 6, 6, 314], [2012, 1, 11, 5, 14]);
+  });
+
+  it('should work for sundays', function() {
+    iso2date([2012, 6, 7, 314], [2012, 1, 12, 5, 14]);
+  });
+});
+
+describe('random', function() {
+  it('extracted from random', function() {
+    backAndForth(moment([2012, 7, 6, 6, 31]));
+    backAndForth(moment([1977, 7, 1, 6, 2]));
+    backAndForth(moment([1982, 7, 2, 6, 51]));
+    backAndForth(moment([1992, 6, 25, 6, 24]));
+    backAndForth(moment([1991, 4, 6, 6, 22]));
+  });
+
+  it('back and forth', function() {
+    var times = 10000
+      , i
+      , _d
+      , date
+      ;
+
+    for (i = 0; i < times; i++)
+    {
+      _d = new Date(Math.floor(Math.random() * 2000000000000));
+      _d.setMilliseconds(0);
+      _d.setSeconds(0);
+      date = moment(_d);
+
+      backAndForth(date);
+    }
+  });
+});

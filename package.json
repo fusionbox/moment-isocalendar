@@ -11,10 +11,11 @@
 , "main": "./moment.isocalendar"
 , "engines": { "node": "*"
              }
-, "dependencies": { "moment": ">=1.0.0"
+, "dependencies": { "moment": ">=1.4.0"
                   }
-, "devDependencies": { "mocha": "*"
-                     , "should": "*"
+, "devDependencies": { "mocha": "latest"
+                     , "should": "latest"
+                     , "jshint": "latest"
                      }
 , "repository": { "type": "git"
                 , "url": "https://github.com/rockymeza/moment-isocalendar.git"
