@@ -1,5 +1,5 @@
 { "name": "moment-isocalendar"
-, "version": "0.0.1"
+, "version": "0.0.2"
 , "description": ""
 , "homepage": "https://github.com/rockymeza/moment-isocalendar"
 , "author": "Rocky Meza <rockymeza@gmail.com> (http://rockymeza.com)"
@@ -14,7 +14,7 @@
 , "dependencies": { "moment": ">=1.4.0"
                   }
 , "devDependencies": { "mocha": "latest"
-                     , "should": "latest"
+                     , "chai": "latest"
                      , "jshint": "latest"
                      }
 , "repository": { "type": "git"
