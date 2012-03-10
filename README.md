@@ -19,6 +19,5 @@ moment.fromIsocalendar([2011, 51, 5, 870]).format('LLLL');
 ```
 
 ## How to test?
-Make sure you have all the dependencies and run `make test`.  You will also need
-Python installed on your computer as the tests compare results against those
-returned from Python.  (Python scripts can be found in `test/helpers/`.
+Make sure you have all the dependencies and run `make test`.  If you want to
+test in the browser, visit the `test/test.html` file.
