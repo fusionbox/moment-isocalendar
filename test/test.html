@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>moment.isocalendar.js Tests</title>
+    <link rel="stylesheet" src="../node_modules/mocha/mocha.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script>
+      chai.should();
+      mocha.setup('bdd');
+    </script>
+    <script src="../node_modules/moment/moment.js"></script>
+    <script src="../moment.isocalendar.js"></script>
+    <script src="isocalendar.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>

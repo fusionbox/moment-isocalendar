@@ -1,10 +1,10 @@
-var moment = require('moment')
-  , should = require('should')
-  , exec = require('child_process').exec
-  , sys = require('util')
-  ;
+if ( typeof require !== 'undefined' )
+{
+  moment = require('moment');
+  should = require('chai').should();
+  require('../moment.isocalendar');
+}
 
-require('../moment.isocalendar');
 
 function date2iso(date, iso) {
   var m = moment(date);

@@ -1,11 +1,11 @@
-if ( typeof require != 'undefined' )
+if ( typeof require !== 'undefined' )
 {
   moment = require('moment');
 }
 
 ;(function(moment) {
 
-  var firstIsoWeekOfYear = exports.firstIsoWeekOfYear = function(year) {
+  var firstIsoWeekOfYear = function(year) {
         var m = moment([year])
           , day = m.day();
 
