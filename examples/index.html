@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>moment.isocalendar.js -- Examples</title>
+    <script src="../node_modules/moment/moment.js"></script>
+    <script src="../moment.isocalendar.js"></script>
+  </head>
+  <body>
+
+    <article id="example1" class="exemplify">
+      <h1>Year month day to ISO week date</h1>
+
+      <section class="example">
+<input type="date" value="2012-03-24">
+<button type="button">Change</button>
+<p>Year <span class="year"></span>, Week <span class="month"></span>, Day <span class="day"></span></p>
+
+        <script>
+(function(){
+  var input = document.querySelector('input')
+    , button = document.querySelector('button')
+
+    , year = document.querySelector('.year')
+    , month = document.querySelector('.month')
+    , day = document.querySelector('.day')
+
+    , updateSpans = function() {
+        var iso = moment(input.value).isocalendar();
+
+        year.textContent = iso[0];
+        month.textContent = iso[1];
+        day.textContent = iso[2];
+      }
+    ;
+
+  button.onclick = updateSpans;
+})();
+        </script>
+      </section>
+    </article>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://raw.github.com/rockymeza/exemplify/master/exemplify.js"></script>
+    <script>
+      exemplify.init();
+    </script>
+  </body>
+</html>
