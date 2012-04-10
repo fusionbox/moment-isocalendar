@@ -1,7 +1,7 @@
 { "name": "moment-isocalendar"
-, "version": "0.0.2"
+, "version": "0.1.0"
 , "description": ""
-, "homepage": "https://github.com/rockymeza/moment-isocalendar"
+, "homepage": "https://github.com/fusionbox/moment-isocalendar"
 , "author": "Rocky Meza <rockymeza@gmail.com> (http://rockymeza.com)"
 , "keywords": [ "moment"
               , "isocalendar"
@@ -18,11 +18,8 @@
                      , "jshint": "latest"
                      }
 , "repository": { "type": "git"
-                , "url": "https://github.com/rockymeza/moment-isocalendar.git"
+                , "url": "https://github.com/fusionbox/moment-isocalendar.git"
                 }
-, "bugs": { "url": "https://github.com/rockymeza/moment-isocalendar/issues"
+, "bugs": { "url": "https://github.com/fusionbox/moment-isocalendar/issues"
           }
-, "licenses" : [ { "type" : "MIT"
-                 }
-               ]
 }
