@@ -24,6 +24,31 @@ if ( typeof require !== 'undefined' )
 
         return m;
       }
+
+      // 0 => year, 1 => week, 2 => day, 3 => minute
+    , index_method_map = ['year', 'week', 'day', 'minute']
+
+      // This method powers the getter/setter methods
+    , genericAccessor = function(index, value) {
+        if ( value )
+        {
+          var iso = this.isocalendar();
+          iso[index] = value;
+          this._d = moment.fromIsocalendar(iso).toDate();
+          return this;
+        }
+        else
+        {
+          return this.isocalendar()[index];
+        }
+      }
+
+      // Helper method for tying together the getter/setters.
+    , accessorFactory = function(index) {
+        return function(value) {
+          return genericAccessor.call(this, index, value);
+        };
+      }
     ;
 
   moment.fn.isocalendar = function() {
@@ -66,4 +91,10 @@ if ( typeof require !== 'undefined' )
 
     return date;
   };
+
+  // isoyear, isomonth, isoday, isominute setters.
+  for (var i = 0, _len = index_method_map.length; i < _len; i++) {
+    moment.fn['iso' + index_method_map[i]] = accessorFactory(i);
+  }
+
 })(moment);
