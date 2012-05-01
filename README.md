@@ -18,6 +18,19 @@ moment.fromIsocalendar([2011, 51, 5, 870]).format('LLLL');
 // "Friday, December 23 2011 2:30 PM"
 ```
 
+### Getters and Setters
+This plugin additionally provides getters and setters for the ISO representation
+values.
+
+```javascript
+var m = moment([2012, 3, 8]); // Sunday, 2012 April 8th
+
+m.isoday(); // 7
+m.isoweek(); // 14
+
+m.isoday(6).format('YYYY-MM-DD'); // "2012-04-07"
+```
+
 ## How to test?
 Make sure you have all the dependencies and run `make test`.  If you want to
 test in the browser, visit the `test/test.html` file.
